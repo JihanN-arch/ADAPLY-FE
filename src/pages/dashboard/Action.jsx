@@ -27,6 +27,7 @@ function Action() {
 
   const recommendation = result.data_backed_result;
   const simulation = result.simulation || {};
+  const confidence = recommendation.confidence == null ? null : Number(recommendation.confidence) * (Number(recommendation.confidence) <= 1 ? 100 : 1);
   const adaptive14 = adaptiveResult?.adaptive_forecast?.forecast_14d ?? simulation.unit_equivalent_forecast_14d ?? 4900;
   const initial14 = adaptiveResult?.original_forecast?.forecast_14d ?? 2700;
   const change = adaptiveResult?.percent_change_14d ?? ((adaptive14 - initial14) / Math.max(initial14, 1)) * 100;
@@ -62,7 +63,7 @@ function Action() {
 
   return (
     <MainLayout>
-      <div className="action-heading"><div><h1>Action Center · {product.display_alias}</h1><p>SKU {product.sku_id} <em>↑ {label(recommendation.status_code)}</em> Updated forecast <strong>{number(adaptive14)}</strong> purchase events / 14 days <b>+{number(change)}% vs initial forecast</b></p></div><Link className="subtle-button" to="/dashboard/analyze" state={{ ...state, adaptive: adaptiveResult }}>← Review forecast</Link></div>
+      <div className="action-heading"><div><h1>Action Center · {product.display_alias}</h1><p>SKU {product.sku_id} <em>↑ {label(recommendation.status_code)}</em><span className={`confidence-label${confidence == null ? " unavailable" : ""}`}>{confidence == null ? "Confidence unavailable" : `Model confidence · ${number(confidence)}%`}</span> Updated forecast <strong>{number(adaptive14)}</strong> purchase events / 14 days <b>+{number(change)}% vs initial forecast</b></p></div><Link className="subtle-button" to="/dashboard/analyze" state={{ ...state, adaptive: adaptiveResult }}>← Review forecast</Link></div>
       <div className="recommendation-grid">
         <article className="panel recommendation-panel"><div className="recommendation-type"><span>▣ Retailer recommendation</span><em>REQUIRES APPROVAL</em></div><h2>{label(recommendation.retailer_action)}</h2><p>Suggested adjustment: <strong>+{number(displayedReplenishment)} unit-equivalent</strong> <i>SIMULATION</i></p><span className="review-chip">◷ Review within 24 hours</span><hr /><strong>Why</strong><ul>{evidence.map((item) => <li key={item}>{item}</li>)}</ul><div className="facts"><span>Current inventory<strong>{number(inventory)} unit-equivalent</strong></span><span>Reorder lead time<strong>{assumptions.leadTime} days</strong></span></div></article>
         <article className="panel recommendation-panel"><div className="recommendation-type"><span>⚑ Manufacturer recommendation</span><em className="neutral">AGGREGATED SIGNALS ONLY</em></div><h2>{label(recommendation.manufacturer_action)}</h2><p>Suggested next batch: <strong>{number(nextBatch)} unit-equivalent</strong> <i>SIMULATION</i></p><span className="reason-chip">✦ Based on adaptive 14-day forecast</span><hr /><strong>Why</strong><ul>{evidence.map((item) => <li key={item}>{item}</li>)}</ul><div className="privacy-note">♧ Manufacturers receive aggregated forecast, status and recommendation only. No raw customer events are shared.</div></article>

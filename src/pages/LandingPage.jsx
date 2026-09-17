@@ -3,10 +3,6 @@ import NavBar from "../components/common/NavBar";
 import arrowIcon from "../assets/figma/icon-01.svg";
 import datasetIcon from "../assets/figma/icon-02.svg";
 import upIcon from "../assets/figma/icon-03.svg";
-import baselineCurve from "../assets/figma/icon-04.svg";
-import earlyCurve from "../assets/figma/icon-07.svg";
-import forecastArea from "../assets/figma/icon-08.svg";
-import adaptiveCurve from "../assets/figma/icon-09.svg";
 import setupIcon from "../assets/figma/icon-10.svg";
 import monitorIcon from "../assets/figma/icon-11.svg";
 import factoryIcon from "../assets/figma/icon-12.svg";
@@ -89,12 +85,16 @@ function ForecastPreview() {
         <div className="mini-chart" aria-label="Initial and adaptive 14-day forecast comparison">
           <div className="chart-labels"><span>5K</span><span>2.5K</span><span>0</span></div>
           <div className="chart-canvas">
-            <img className="forecast-area" src={forecastArea} alt="" />
-            <img className="baseline-curve" src={baselineCurve} alt="" />
-            <img className="early-curve" src={earlyCurve} alt="" />
-            <img className="adaptive-curve" src={adaptiveCurve} alt="" />
-            <span className="day-three">Day 3</span>
-            <span className="chart-total">4,900</span>
+            <svg className="mini-chart-svg" viewBox="0 0 760 190" role="img" aria-label="Actual demand through Day 3, initial forecast to 2,700, and adaptive forecast to 4,900">
+              <rect x="140" width="620" height="180" fill="#f5f6f7" />
+              <line x1="0" y1="180" x2="760" y2="180" stroke="#d8dde0" />
+              <polyline points="0,170 70,151 140,134 760,78" fill="none" stroke="#929ba0" strokeWidth="4" strokeDasharray="13 10" />
+              <polyline points="0,170 70,148 140,126" fill="none" stroke="#cf6b8a" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+              <polyline points="140,126 760,24" fill="none" stroke="#233d4d" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="140" cy="126" r="5" fill="#cf6b8a" />
+              <text x="151" y="153" fill="#8d4a67" fontSize="13">Day 3</text>
+              <text x="718" y="18" fill="#233d4d" fontSize="14" fontWeight="700">4,900</text>
+            </svg>
           </div>
         </div>
 
@@ -119,7 +119,7 @@ function LandingPage() {
         <section className="hero-section">
           <div className="hero-shell">
             <div className="hero-copy">
-              <span className="eyebrow eyebrow-light">Early warning system for new beauty launches</span>
+              <span className="eyebrow eyebrow-light">Early warning system for new launches</span>
               <h1>Know early if a new beauty product is ahead, on plan, or falling behind.</h1>
               <p>
                 Adaply turns Day 1–3 views, carts, and purchases into an adaptive 14-day demand forecast—before an inventory miss becomes expensive.

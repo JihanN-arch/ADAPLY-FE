@@ -9,7 +9,7 @@ const rate = (value) => Number(value ?? 0) * (Number(value ?? 0) <= 1 ? 100 : 1)
 function Analyze() {
   const { state } = useLocation();
   const product = state?.product || demoProducts[0];
-  const [dayCutoff, setDayCutoff] = useState(3);
+  const dayCutoff = 3;
   const [initial, setInitial] = useState(state?.initial || null);
   const [adaptive, setAdaptive] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -46,7 +46,6 @@ function Analyze() {
       <section className="product-context panel">
         <Link to="/dashboard/setup">← Launch Setup</Link>
         <div><strong>{product.display_alias} <span>/ SKU {product.sku_id}</span></strong><small>{product.brand} · {product.category_label || "Beauty Category"} {product.category_cluster_id} · Observed launch proxy: {product.observed_launch_date}</small></div>
-        <label>Signal cutoff<select value={dayCutoff} onChange={(event) => { setLoading(true); setDayCutoff(Number(event.target.value)); }}><option value="1">Day 1</option><option value="2">Day 2</option><option value="3">Day 3</option></select></label>
         <Link className="subtle-button" to="/dashboard/setup">Change SKU</Link>
       </section>
 
