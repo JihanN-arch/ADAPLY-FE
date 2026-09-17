@@ -120,7 +120,7 @@ function LandingPage() {
           <div className="hero-shell">
             <div className="hero-copy">
               <span className="eyebrow eyebrow-light">Early warning system for new launches</span>
-              <h1>Know early if a new beauty product is ahead, on plan, or falling behind.</h1>
+              <h1>Know early if a new product is ahead, on plan, or falling behind.</h1>
               <p>
                 Adaply turns Day 1–3 views, carts, and purchases into an adaptive 14-day demand forecast—before an inventory miss becomes expensive.
               </p>
